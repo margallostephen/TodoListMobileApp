@@ -232,8 +232,22 @@ class _HomeState extends State<Home> {
                                     ),
                                   ),
                                   trailing: GestureDetector(
-                                    onTap: () {
-                                      // TODO: Edit Task
+                                    onTap: () async {
+                                      await Navigator.pushNamed(
+                                        context,
+                                        '/task_form',
+                                        arguments: {
+                                          'tasks': tasks,
+                                          'operation': 'Edit Task',
+                                          'key': task['key'],
+                                          'name': task['name'],
+                                          'description': task['description'],
+                                          'date': task['date'],
+                                          'userKey': userKey,
+                                        },
+                                      );
+
+                                      getData();
                                     },
                                     child: const Icon(
                                       Icons.edit,
@@ -296,7 +310,7 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ),
-                 Expanded(
+                Expanded(
                   child: Align(
                     alignment: Alignment.bottomRight,
                     child: Container(
