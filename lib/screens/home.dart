@@ -134,7 +134,8 @@ class _HomeState extends State<Home> {
                               direction: DismissDirection.startToEnd,
                               key: Key(task['key'].toString()),
                               onDismissed: (_) {
-                                // TODO: Delete Task
+                                tasks.delete(task['key']);
+                                getData();
                               },
                               background: Container(
                                 margin: const EdgeInsets.fromLTRB(
