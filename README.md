@@ -59,6 +59,17 @@ Ken Juvic Marasigan
 	•  Add app bar
 	•  Add register screen
 
+Justine Ann Martinez
+
+	•  Add app bar
+	•  Add design label
+	•  Add login form
+	•  Add login function
+	•  Add show pass icon
+	•  Add auto validate form
+	•  Add clear form function
+	•  Add notification message
+	•  Finalize login form
 
 
 
