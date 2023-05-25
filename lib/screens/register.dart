@@ -16,6 +16,7 @@ class _RegisterState extends State<Register> {
   List<Map<String, dynamic>> emails = [];
 
   final registrationFormKey = GlobalKey<FormState>();
+  AutovalidateMode validateMode = AutovalidateMode.disabled;
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController addressController = TextEditingController();
@@ -120,6 +121,7 @@ class _RegisterState extends State<Register> {
                   ),
                   Form(
                     key: registrationFormKey,
+                    autovalidateMode: validateMode,
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -354,7 +356,11 @@ class _RegisterState extends State<Register> {
                                       'Account Successfully Created',
                                       Colors.green[600],
                                       context);
-                                } 
+                                } else {
+                                  setState(() {
+                                    validateMode = AutovalidateMode.always;
+                                  });
+                                }
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Style.violet,
