@@ -296,6 +296,41 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ),
+                 Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: Container(
+                      margin: const EdgeInsets.only(
+                        bottom: 15,
+                      ),
+                      child: FloatingActionButton(
+                        heroTag: 'add',
+                        backgroundColor: Colors.white,
+                        onPressed: () async {
+                          await Navigator.pushNamed(
+                            context,
+                            '/task_form',
+                            arguments: {
+                              'tasks': tasks,
+                              'operation': 'Add Task',
+                              'key': '',
+                              'name': '',
+                              'description': '',
+                              'date': '',
+                              'userKey': userKey,
+                            },
+                          );
+
+                          getData();
+                        },
+                        child: const Icon(
+                          Icons.add,
+                          color: Style.violet,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ],
