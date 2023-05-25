@@ -12,11 +12,11 @@ class TaskForm extends StatefulWidget {
 
 class _TaskFormState extends State<TaskForm> {
   dynamic arguments;
-
   final taskFormKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController dateController = TextEditingController();
+  int sateCount = 0;
   IconData? icon;
 
   @override
@@ -28,6 +28,13 @@ class _TaskFormState extends State<TaskForm> {
   Widget build(BuildContext context) {
     arguments = ModalRoute.of(context)?.settings.arguments;
     arguments['operation'] == "Add Task" ? icon = Icons.add : icon = Icons.edit;
+
+    if (arguments['operation'] == "Edit Task" && sateCount == 0) {
+      nameController.text = arguments['name'];
+      descriptionController.text = arguments['description'];
+      dateController.text = arguments['date'];
+      sateCount++;
+    }
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 54, 23, 94),
