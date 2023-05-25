@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../components/app_bar.dart';
 import '../components/style.dart';
 
@@ -130,6 +131,30 @@ class _TaskFormState extends State<TaskForm> {
                             return 'Please select a date';
                           } else {
                             return null;
+                          }
+                        },
+                        readOnly: true,
+                        onTap: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime.now().add(
+                              const Duration(days: 10000),
+                            ),
+
+                          );
+                          if (pickedDate != null) {
+                            setState(
+                              () {
+                                dateController.text =
+                                    DateFormat('dd-MMM-yyyy').format(
+                                  DateTime.parse(
+                                    pickedDate.toString(),
+                                  ),
+                                );
+                              },
+                            );
                           }
                         },
                       ),
