@@ -19,7 +19,7 @@ class TodoList extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: '/register',
         routes: {
-          '/register': (context) => Register(),
+          '/register': (context) => const Register(),
         },
       ),
     );

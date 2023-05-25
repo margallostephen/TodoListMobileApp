@@ -64,6 +64,7 @@ class _RegisterState extends State<Register> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     IconData visibilityIcon =
         (passVisibility) ? Icons.visibility_off : Icons.visibility;
@@ -71,7 +72,7 @@ class _RegisterState extends State<Register> {
         (confirmPassVisibility) ? Icons.visibility_off : Icons.visibility;
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(
+      backgroundColor: const Color.fromARGB(
         255,
         54,
         23,
@@ -79,13 +80,13 @@ class _RegisterState extends State<Register> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             left: 20,
             right: 20,
           ),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               CustomAppBar(
@@ -94,10 +95,10 @@ class _RegisterState extends State<Register> {
               ),
               Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
-                  Text(
+                  const Text(
                     'Create new account',
                     style: TextStyle(
                       fontSize: 28,
@@ -105,10 +106,10 @@ class _RegisterState extends State<Register> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
-                  Text(
+                  const Text(
                     'Please fill in the form to continue',
                     style: TextStyle(
                       fontSize: 14,
@@ -116,20 +117,20 @@ class _RegisterState extends State<Register> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   Form(
                     key: registrationFormKey,
                     autovalidateMode: validateMode,
                     child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(
                           Radius.circular(10),
                         ),
                       ),
-                      padding: EdgeInsets.fromLTRB(
+                      padding: const EdgeInsets.fromLTRB(
                         20,
                         25,
                         20,
@@ -139,7 +140,7 @@ class _RegisterState extends State<Register> {
                         children: [
                           TextFormField(
                             controller: nameController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               labelStyle: TextStyle(
                                 color: Style.violet,
                               ),
@@ -167,12 +168,12 @@ class _RegisterState extends State<Register> {
                               }
                             },
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           TextFormField(
                             controller: emailController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               labelStyle: TextStyle(
                                 color: Style.violet,
                               ),
@@ -197,12 +198,12 @@ class _RegisterState extends State<Register> {
                               }
                             },
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           TextFormField(
                             controller: addressController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               labelStyle: TextStyle(
                                 color: Style.violet,
                               ),
@@ -221,7 +222,7 @@ class _RegisterState extends State<Register> {
                               return null;
                             },
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           FocusScope(
@@ -240,11 +241,11 @@ class _RegisterState extends State<Register> {
                                 controller: passwordController,
                                 obscureText: passVisibility,
                                 decoration: InputDecoration(
-                                  labelStyle: TextStyle(
+                                  labelStyle: const TextStyle(
                                     color: Style.violet,
                                   ),
                                   labelText: 'Password',
-                                  prefixIcon: Icon(Icons.lock),
+                                  prefixIcon: const Icon(Icons.lock),
                                   prefixIconColor: Style.violet,
                                   border: Style.normal,
                                   enabledBorder: Style.normal,
@@ -259,7 +260,8 @@ class _RegisterState extends State<Register> {
                                     child: Visibility(
                                       visible: showPassButton,
                                       child: Padding(
-                                        padding: EdgeInsets.only(right: 10),
+                                        padding:
+                                            const EdgeInsets.only(right: 10),
                                         child: Icon(
                                           visibilityIcon,
                                           color: Style.violet,
@@ -280,7 +282,7 @@ class _RegisterState extends State<Register> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           FocusScope(
@@ -299,11 +301,12 @@ class _RegisterState extends State<Register> {
                                 controller: confirmPasswordController,
                                 obscureText: confirmPassVisibility,
                                 decoration: InputDecoration(
-                                  labelStyle: TextStyle(
+                                  labelStyle: const TextStyle(
                                     color: Style.violet,
                                   ),
                                   labelText: 'Confirm Password',
-                                  prefixIcon: Icon(Icons.sync_lock_rounded),
+                                  prefixIcon:
+                                      const Icon(Icons.sync_lock_rounded),
                                   prefixIconColor: Style.violet,
                                   border: Style.normal,
                                   enabledBorder: Style.normal,
@@ -341,7 +344,7 @@ class _RegisterState extends State<Register> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 40,
                           ),
                           SizedBox(
@@ -356,6 +359,7 @@ class _RegisterState extends State<Register> {
                                       'Account Successfully Created',
                                       Colors.green[600],
                                       context);
+                                  Navigator.pop(context);
                                 } else {
                                   setState(() {
                                     validateMode = AutovalidateMode.always;
@@ -368,7 +372,7 @@ class _RegisterState extends State<Register> {
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                               ),
-                              child: Text(
+                              child: const Text(
                                 'Register',
                                 style: TextStyle(
                                   fontSize: 20,
@@ -377,14 +381,14 @@ class _RegisterState extends State<Register> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 40,
                           ),
                           Wrap(
                             alignment: WrapAlignment.center,
                             crossAxisAlignment: WrapCrossAlignment.center,
                             children: [
-                              Text(
+                              const Text(
                                 'Already have an account?',
                                 style: TextStyle(
                                   fontSize: 16,
@@ -393,8 +397,10 @@ class _RegisterState extends State<Register> {
                                 ),
                               ),
                               TextButton(
-                                onPressed: () {},
-                                child: Text(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text(
                                   'Login',
                                   style: TextStyle(
                                     fontSize: 16,
