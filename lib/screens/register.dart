@@ -161,8 +161,6 @@ class _RegisterState extends State<Register> {
                                       .hasMatch(value) ==
                                   false) {
                                 return 'Name must contain only letters';
-                              } else if (!validateEmail()) {
-                                return 'Email already exists';
                               } else {
                                 return null;
                               }
@@ -193,6 +191,8 @@ class _RegisterState extends State<Register> {
                                       .hasMatch(value) ==
                                   false) {
                                 return 'Please enter a valid email';
+                              }  else if (!validateEmail()) {
+                                return 'Email already exists';
                               } else {
                                 return null;
                               }
