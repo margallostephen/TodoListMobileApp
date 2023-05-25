@@ -24,6 +24,24 @@ class _TaskFormState extends State<TaskForm> {
     super.initState();
   }
 
+  void addTask() {
+    arguments['tasks'].add({
+      'name': nameController.text,
+      'description': descriptionController.text,
+      'date': dateController.text,
+      'userKey': arguments['userKey'],
+    });
+  }
+
+  void editTask() {
+    arguments['tasks'].put(arguments['key'], {
+      'name': nameController.text,
+      'description': descriptionController.text,
+      'date': dateController.text,
+      'userKey': arguments['userKey'],
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     arguments = ModalRoute.of(context)?.settings.arguments;
@@ -187,7 +205,9 @@ class _TaskFormState extends State<TaskForm> {
                                   Colors.red,
                                 ),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
                               child: const Padding(
                                 padding: EdgeInsets.all(12),
                                 child: Text(
@@ -202,7 +222,18 @@ class _TaskFormState extends State<TaskForm> {
                           ),
                           Expanded(
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                if (taskFormKey.currentState!.validate()) {
+                                  String message;
+                                  if (arguments['operation'] == "Add Task") {
+                                    addTask();
+                                  } else {
+                                    editTask();
+                                  }
+
+                                  Navigator.pop(context);
+                                }
+                              },
                               style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
