@@ -4,7 +4,7 @@ import '../components/style.dart';
 import 'package:hive/hive.dart';
 
 class Register extends StatefulWidget {
-  const Register({super.key});
+  Register({super.key});
 
   @override
   State<Register> createState() => _RegisterState();
@@ -20,6 +20,10 @@ class _RegisterState extends State<Register> {
   TextEditingController addressController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
+  bool passVisibility = true,
+      confirmPassVisibility = true,
+      showPassButton = false,
+      showConfirmPassButton = false;
 
   @override
   void initState() {
@@ -50,8 +54,13 @@ class _RegisterState extends State<Register> {
   }
 
   Widget build(BuildContext context) {
+    IconData visibilityIcon =
+        (passVisibility) ? Icons.visibility_off : Icons.visibility;
+    IconData confirmVisibilityIcon =
+        (confirmPassVisibility) ? Icons.visibility_off : Icons.visibility;
+
     return Scaffold(
-      backgroundColor: const Color.fromARGB(
+      backgroundColor: Color.fromARGB(
         255,
         54,
         23,
@@ -59,13 +68,13 @@ class _RegisterState extends State<Register> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(
+          padding: EdgeInsets.only(
             left: 20,
             right: 20,
           ),
           child: Column(
             children: [
-              const SizedBox(
+              SizedBox(
                 height: 20,
               ),
               CustomAppBar(
@@ -74,10 +83,10 @@ class _RegisterState extends State<Register> {
               ),
               Column(
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     height: 25,
                   ),
-                  const Text(
+                  Text(
                     'Create new account',
                     style: TextStyle(
                       fontSize: 28,
@@ -85,10 +94,10 @@ class _RegisterState extends State<Register> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 20,
                   ),
-                  const Text(
+                  Text(
                     'Please fill in the form to continue',
                     style: TextStyle(
                       fontSize: 14,
@@ -96,19 +105,19 @@ class _RegisterState extends State<Register> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 30,
                   ),
                   Form(
                     key: registrationFormKey,
                     child: Container(
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(
                           Radius.circular(10),
                         ),
                       ),
-                      padding: const EdgeInsets.fromLTRB(
+                      padding: EdgeInsets.fromLTRB(
                         20,
                         25,
                         20,
@@ -118,7 +127,7 @@ class _RegisterState extends State<Register> {
                         children: [
                           TextFormField(
                             controller: nameController,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               labelStyle: TextStyle(
                                 color: Style.violet,
                               ),
@@ -146,12 +155,12 @@ class _RegisterState extends State<Register> {
                               }
                             },
                           ),
-                          const SizedBox(
+                          SizedBox(
                             height: 20,
                           ),
                           TextFormField(
                             controller: emailController,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               labelStyle: TextStyle(
                                 color: Style.violet,
                               ),
@@ -176,12 +185,12 @@ class _RegisterState extends State<Register> {
                               }
                             },
                           ),
-                          const SizedBox(
+                          SizedBox(
                             height: 20,
                           ),
                           TextFormField(
                             controller: addressController,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               labelStyle: TextStyle(
                                 color: Style.violet,
                               ),
@@ -200,63 +209,127 @@ class _RegisterState extends State<Register> {
                               return null;
                             },
                           ),
-                          const SizedBox(
+                          SizedBox(
                             height: 20,
                           ),
-                          TextFormField(
-                            controller: passwordController,
-                            obscureText: true,
-                            decoration: const InputDecoration(
-                              labelStyle: TextStyle(
-                                color: Style.violet,
+                          FocusScope(
+                            child: Focus(
+                              onFocusChange: (hasFocus) {
+                                (hasFocus)
+                                    ? setState(() {
+                                        showPassButton = true;
+                                      })
+                                    : setState(() {
+                                        showPassButton = false;
+                                        passVisibility = true;
+                                      });
+                              },
+                              child: TextFormField(
+                                controller: passwordController,
+                                obscureText: passVisibility,
+                                decoration: InputDecoration(
+                                  labelStyle: TextStyle(
+                                    color: Style.violet,
+                                  ),
+                                  labelText: 'Password',
+                                  prefixIcon: Icon(Icons.lock),
+                                  prefixIconColor: Style.violet,
+                                  border: Style.normal,
+                                  enabledBorder: Style.normal,
+                                  focusedBorder: Style.focused,
+                                  focusedErrorBorder: Style.errorFocused,
+                                  suffixIcon: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        passVisibility = !passVisibility;
+                                      });
+                                    },
+                                    child: Visibility(
+                                      visible: showPassButton,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(right: 10),
+                                        child: Icon(
+                                          visibilityIcon,
+                                          color: Style.violet,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your password';
+                                  } else if (value.length < 8) {
+                                    return 'Password must be at least 8 characters long';
+                                  } else {
+                                    return null;
+                                  }
+                                },
                               ),
-                              labelText: 'Password',
-                              prefixIcon: Icon(Icons.lock),
-                              prefixIconColor: Style.violet,
-                              border: Style.normal,
-                              enabledBorder: Style.normal,
-                              focusedBorder: Style.focused,
-                              focusedErrorBorder: Style.errorFocused,
                             ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your password';
-                              } else if (value.length < 8) {
-                                return 'Password must be at least 8 characters long';
-                              } else {
-                                return null;
-                              }
-                            },
                           ),
-                          const SizedBox(
+                          SizedBox(
                             height: 20,
                           ),
-                          TextFormField(
-                            controller: confirmPasswordController,
-                            obscureText: true,
-                            decoration: const InputDecoration(
-                              labelStyle: TextStyle(
-                                color: Style.violet,
+                          FocusScope(
+                            child: Focus(
+                              onFocusChange: (hasFocus) {
+                                (hasFocus)
+                                    ? setState(() {
+                                        showConfirmPassButton = true;
+                                      })
+                                    : setState(() {
+                                        showConfirmPassButton = false;
+                                        confirmPassVisibility = true;
+                                      });
+                              },
+                              child: TextFormField(
+                                controller: confirmPasswordController,
+                                obscureText: confirmPassVisibility,
+                                decoration: InputDecoration(
+                                  labelStyle: TextStyle(
+                                    color: Style.violet,
+                                  ),
+                                  labelText: 'Confirm Password',
+                                  prefixIcon: Icon(Icons.sync_lock_rounded),
+                                  prefixIconColor: Style.violet,
+                                  border: Style.normal,
+                                  enabledBorder: Style.normal,
+                                  focusedBorder: Style.focused,
+                                  focusedErrorBorder: Style.errorFocused,
+                                  suffixIcon: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        confirmPassVisibility =
+                                            !confirmPassVisibility;
+                                      });
+                                    },
+                                    child: Visibility(
+                                      visible: showConfirmPassButton,
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 10),
+                                        child: Icon(
+                                          confirmVisibilityIcon,
+                                          color: Style.violet,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your password again';
+                                  } else if (value != passwordController.text) {
+                                    return 'Passwords do not match';
+                                  } else {
+                                    return null;
+                                  }
+                                },
                               ),
-                              labelText: 'Confirm Password',
-                              prefixIcon: Icon(Icons.sync_lock_rounded),
-                              prefixIconColor: Style.violet,
-                              border: Style.normal,
-                              enabledBorder: Style.normal,
-                              focusedBorder: Style.focused,
-                              focusedErrorBorder: Style.errorFocused,
                             ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your password again';
-                              } else if (value != passwordController.text) {
-                                return 'Passwords do not match';
-                              } else {
-                                return null;
-                              }
-                            },
                           ),
-                          const SizedBox(
+                          SizedBox(
                             height: 40,
                           ),
                           SizedBox(
@@ -270,7 +343,7 @@ class _RegisterState extends State<Register> {
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                               ),
-                              child: const Text(
+                              child: Text(
                                 'Register',
                                 style: TextStyle(
                                   fontSize: 20,
@@ -279,14 +352,14 @@ class _RegisterState extends State<Register> {
                               ),
                             ),
                           ),
-                          const SizedBox(
+                          SizedBox(
                             height: 40,
                           ),
                           Wrap(
                             alignment: WrapAlignment.center,
                             crossAxisAlignment: WrapCrossAlignment.center,
                             children: [
-                              const Text(
+                              Text(
                                 'Already have an account?',
                                 style: TextStyle(
                                   fontSize: 16,
@@ -296,7 +369,7 @@ class _RegisterState extends State<Register> {
                               ),
                               TextButton(
                                 onPressed: () {},
-                                child: const Text(
+                                child: Text(
                                   'Login',
                                   style: TextStyle(
                                     fontSize: 16,
