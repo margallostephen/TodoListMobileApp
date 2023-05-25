@@ -16,6 +16,7 @@ class _LoginState extends State<Login> {
   String? userKey, name;
 
   final loginFormKey = GlobalKey<FormState>();
+  AutovalidateMode validateMode = AutovalidateMode.disabled;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool passVisibility = true, showPassButton = false;
@@ -103,6 +104,7 @@ class _LoginState extends State<Login> {
                   ),
                   Form(
                     key: loginFormKey,
+                    autovalidateMode: validateMode,
                     child: Container(
                       decoration: const BoxDecoration(
                         color: Colors.white,
@@ -210,6 +212,10 @@ class _LoginState extends State<Login> {
                                 if (loginFormKey.currentState!.validate()) {
                                   if (login()) {
                                   } else {}
+                                } else {
+                                  setState(() {
+                                    validateMode = AutovalidateMode.always;
+                                  });
                                 }
                               },
                               style: ElevatedButton.styleFrom(
