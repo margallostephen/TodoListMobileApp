@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../components/app_bar.dart';
+import '../components/notif.dart';
 import '../components/style.dart';
 import 'package:hive/hive.dart';
 
@@ -349,6 +350,10 @@ class _RegisterState extends State<Register> {
                                 if (registrationFormKey.currentState!
                                     .validate()) {
                                   createAccount();
+                                  Notif.showMessage(
+                                      'Account Successfully Created',
+                                      Colors.green[600],
+                                      context);
                                 } 
                               },
                               style: ElevatedButton.styleFrom(
