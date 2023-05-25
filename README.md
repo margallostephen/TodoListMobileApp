@@ -14,6 +14,7 @@ This is a simple to-do list app built using flutter framework
 ### Contributions ###
 
 Stephen Margallo
+
 	•	Handle all the create pull request and merging of the branches
 	•	Add task exist validation
 	•	Change app icon
