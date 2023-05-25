@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'screens/register.dart';
 import 'screens/login.dart';
 import 'screens/home.dart';
+import 'screens/task_form.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +25,7 @@ class TodoList extends StatelessWidget {
           '/login': (context) => const Login(),
           '/register': (context) => const Register(),
           '/home': (context) => const Home(),
+          '/task_form': (context) => const TaskForm(),
         },
       ),
     );
