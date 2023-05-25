@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../components/app_bar.dart';
 import '../components/style.dart';
+import 'package:hive/hive.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -10,9 +11,48 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final accounts = Hive.box('accounts');
+  List<Map<String, dynamic>> accountData = [];
+  String? userKey, name;
+
   final loginFormKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  void getData() {
+    final data = accounts.keys.map((key) {
+      final item = accounts.get(key);
+      return {
+        'userKey': key,
+        'name': item['name'],
+        'email': item['email'],
+        'password': item['password'],
+      };
+    }).toList();
+    setState(() {
+      accountData = data.reversed.toList();
+    });
+  }
+
+  bool login() {
+    if (accountData.isNotEmpty) {
+      for (var i = 0; i < accountData.length; i++) {
+        if (accountData[i]['email'] == emailController.text &&
+            accountData[i]['password'] == passwordController.text) {
+          userKey = accountData[i]['userKey'].toString();
+          name = accountData[i]['name'].toString();
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +174,15 @@ class _LoginState extends State<Login> {
                             width: double.infinity,
                             height: 50,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                if (loginFormKey.currentState!.validate()) {
+                                  if (login()) {
+
+                                  } else {
+                                    
+                                  }
+                                }
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Style.violet,
                                 shape: RoundedRectangleBorder(
