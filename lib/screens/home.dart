@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../components/app_bar.dart';
 import 'package:hive/hive.dart';
+import '../components/notif.dart';
 import '../components/style.dart';
 
 class Home extends StatefulWidget {
@@ -19,6 +20,9 @@ class _HomeState extends State<Home> {
   @override
   initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Notif.showMessage('Login Successfully', Colors.green[600], context);
+    });
     getData();
   }
 
@@ -136,6 +140,10 @@ class _HomeState extends State<Home> {
                               onDismissed: (_) {
                                 tasks.delete(task['key']);
                                 getData();
+                                Notif.showMessage(
+                                    'Task ${task['name']} deleted',
+                                    Colors.red,
+                                    context);
                               },
                               background: Container(
                                 margin: const EdgeInsets.fromLTRB(
@@ -277,6 +285,11 @@ class _HomeState extends State<Home> {
                         heroTag: 'logout',
                         backgroundColor: Colors.red,
                         onPressed: () {
+                          Notif.showMessage(
+                            'Logout Successfully',
+                            Colors.green[600],
+                            context,
+                          );
                           Navigator.pop(context);
                         },
                         child: const Icon(
@@ -301,6 +314,11 @@ class _HomeState extends State<Home> {
                           if (countCurrentUserTask() > 0) {
                             clearCurrentUserTask();
                             getData();
+                            Notif.showMessage(
+                              'All Task Deleted',
+                              Colors.red,
+                              context,
+                            );
                           }
                         },
                         child: const Icon(
