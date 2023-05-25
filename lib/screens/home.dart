@@ -241,6 +241,31 @@ class _HomeState extends State<Home> {
                       ),
               ),
             ),
+            Row(
+              children: [
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Container(
+                      margin: const EdgeInsets.only(
+                        bottom: 15,
+                      ),
+                      child: FloatingActionButton(
+                        heroTag: 'logout',
+                        backgroundColor: Colors.red,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Icon(
+                          Icons.logout,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
