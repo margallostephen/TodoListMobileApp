@@ -44,6 +44,20 @@ Cedrix Monreal
 	•	Add form buttons
 	•	Add input fields
 	•	Add app bar
+	
+	
+Ken Juvic Marasigan
+
+	•  Fix email validation
+	•  finalize register form
+	•  Add auto form function
+	•  Add notification message
+	•  Add create account function
+	•  Add show pass icon
+	•  Add email exist validation
+	•  Add form design
+	•  Add app bar
+	•  Add register screen
 
 
 
