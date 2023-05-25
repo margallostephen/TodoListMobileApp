@@ -75,6 +75,13 @@ class _TaskFormState extends State<TaskForm> {
                           focusedBorder: Style.focused,
                           focusedErrorBorder: Style.errorFocused,
                         ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a task';
+                          } else {
+                            return null;
+                          }
+                        },
                       ),
                       const SizedBox(
                         height: 20,
@@ -93,6 +100,13 @@ class _TaskFormState extends State<TaskForm> {
                           focusedBorder: Style.focused,
                           focusedErrorBorder: Style.errorFocused,
                         ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a description';
+                          } else {
+                            return null;
+                          }
+                        },
                       ),
                       const SizedBox(
                         height: 20,
@@ -111,6 +125,13 @@ class _TaskFormState extends State<TaskForm> {
                           focusedBorder: Style.focused,
                           focusedErrorBorder: Style.errorFocused,
                         ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please select a date';
+                          } else {
+                            return null;
+                          }
+                        },
                       ),
                       const SizedBox(
                         height: 20,
