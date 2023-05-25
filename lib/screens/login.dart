@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../components/app_bar.dart';
+import '../components/style.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -9,6 +10,10 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final loginFormKey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,6 +56,134 @@ class _LoginState extends State<Login> {
                   ),
                   const SizedBox(
                     height: 30,
+                  ),
+                  Form(
+                    key: loginFormKey,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                      ),
+                      padding: const EdgeInsets.fromLTRB(
+                        20,
+                        25,
+                        20,
+                        40,
+                      ),
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            controller: emailController,
+                            decoration: const InputDecoration(
+                              labelStyle: TextStyle(
+                                color: Style.violet,
+                              ),
+                              labelText: 'Email',
+                              prefixIcon: Icon(Icons.email),
+                              prefixIconColor: Style.violet,
+                              border: Style.normal,
+                              enabledBorder: Style.normal,
+                              focusedBorder: Style.focused,
+                              focusedErrorBorder: Style.errorFocused,
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your email';
+                              } else if (RegExp(
+                                          r'^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$')
+                                      .hasMatch(value) ==
+                                  false) {
+                                return 'Please enter a valid email';
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            controller: passwordController,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              labelStyle: const TextStyle(
+                                color: Style.violet,
+                              ),
+                              labelText: 'Password',
+                              prefixIcon: const Icon(Icons.lock),
+                              prefixIconColor: Style.violet,
+                              border: Style.normal,
+                              enabledBorder: Style.normal,
+                              focusedBorder: Style.focused,
+                              focusedErrorBorder: Style.errorFocused,
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your password';
+                              } else {
+                                return null;
+                              }
+                            },
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          SizedBox(
+                            width: double.infinity,
+                            height: 50,
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Style.violet,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                              ),
+                              child: const Text(
+                                'Login',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          Wrap(
+                            alignment: WrapAlignment.center,
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            children: [
+                              const Text(
+                                'Don\'t have an account?',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {},
+                                child: const Text(
+                                  'Register',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Style.violet,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                 ],
               ),
