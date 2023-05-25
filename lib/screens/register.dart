@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../components/app_bar.dart';
 import '../components/style.dart';
+import 'package:hive/hive.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -10,6 +11,9 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final accounts = Hive.box('accounts');
+  List<Map<String, dynamic>> emails = [];
+
   final registrationFormKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -20,6 +24,29 @@ class _RegisterState extends State<Register> {
   @override
   void initState() {
     super.initState();
+    getData();
+  }
+
+  void getData() {
+    final data = accounts.keys.map((key) {
+      final item = accounts.get(key);
+      return {
+        'email': item['email'],
+      };
+    }).toList();
+
+    setState(() {
+      emails = data.reversed.toList();
+    });
+  }
+
+  bool validateEmail() {
+    for (var i = 0; i < emails.length; i++) {
+      if (emails[i]['email'] == emailController.text) {
+        return false;
+      }
+    }
+    return true;
   }
 
   Widget build(BuildContext context) {
@@ -112,6 +139,8 @@ class _RegisterState extends State<Register> {
                                       .hasMatch(value) ==
                                   false) {
                                 return 'Name must contain only letters';
+                              } else if (!validateEmail()) {
+                                return 'Email already exists';
                               } else {
                                 return null;
                               }
