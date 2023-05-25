@@ -14,6 +14,7 @@ class TaskForm extends StatefulWidget {
 class _TaskFormState extends State<TaskForm> {
   dynamic arguments;
   final taskFormKey = GlobalKey<FormState>();
+  AutovalidateMode validateMode = AutovalidateMode.disabled;
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController dateController = TextEditingController();
@@ -78,6 +79,7 @@ class _TaskFormState extends State<TaskForm> {
               ),
               Form(
                 key: taskFormKey,
+                autovalidateMode: validateMode,
                 child: Container(
                   decoration: const BoxDecoration(
                     color: Colors.white,
@@ -240,6 +242,10 @@ class _TaskFormState extends State<TaskForm> {
                                     context,
                                   );
                                   Navigator.pop(context);
+                                } else {
+                                  setState(() {
+                                    validateMode = AutovalidateMode.always;
+                                  });
                                 }
                               },
                               style: ButtonStyle(
