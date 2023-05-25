@@ -4,7 +4,7 @@ import '../components/style.dart';
 import 'package:hive/hive.dart';
 
 class Register extends StatefulWidget {
-  Register({super.key});
+  const Register({super.key});
 
   @override
   State<Register> createState() => _RegisterState();
@@ -51,6 +51,15 @@ class _RegisterState extends State<Register> {
       }
     }
     return true;
+  }
+
+  void createAccount() {
+    accounts.add({
+      'name': nameController.text,
+      'email': emailController.text,
+      'address': addressController.text,
+      'password': passwordController.text,
+    });
   }
 
   Widget build(BuildContext context) {
@@ -336,7 +345,12 @@ class _RegisterState extends State<Register> {
                             width: double.infinity,
                             height: 50,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                if (registrationFormKey.currentState!
+                                    .validate()) {
+                                  createAccount();
+                                } 
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Style.violet,
                                 shape: RoundedRectangleBorder(
