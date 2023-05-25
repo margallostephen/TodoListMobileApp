@@ -155,7 +155,7 @@ class _RegisterState extends State<Register> {
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter your name';
-                              } else if (value.length < 2) {
+                              } else if (value.length < 3) {
                                 return 'Name must be at least 3 characters long';
                               } else if (RegExp(r'^[a-zA-Z ]+$')
                                       .hasMatch(value) ==
