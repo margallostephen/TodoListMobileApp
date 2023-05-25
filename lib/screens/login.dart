@@ -25,6 +25,35 @@ class _LoginState extends State<Login> {
                 title: 'Login',
                 icon: Icons.login,
               ),
+              Column(
+                children: [
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  const Text(
+                    'Welcome Back!',
+                    style: TextStyle(
+                      fontSize: 28,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    'Please login to your account',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                ],
+              ),
             ],
           ),
         ),
