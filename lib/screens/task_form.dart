@@ -20,6 +20,7 @@ class _TaskFormState extends State<TaskForm> {
   TextEditingController dateController = TextEditingController();
   int sateCount = 0;
   IconData? icon;
+  bool nameChanged = false;
 
   @override
   initState() {
@@ -42,6 +43,16 @@ class _TaskFormState extends State<TaskForm> {
       'date': dateController.text,
       'userKey': arguments['userKey'],
     });
+  }
+
+  bool taskAlreadyExist() {
+    for (var i = 0; i < arguments['tasks'].length; i++) {
+      if (arguments['tasks'].getAt(i)['name'] == nameController.text &&
+          nameChanged) {
+        return true;
+      }
+    }
+    return false;
   }
 
   @override
@@ -91,6 +102,13 @@ class _TaskFormState extends State<TaskForm> {
                   child: Column(
                     children: [
                       TextFormField(
+                        onChanged: (value) => setState(() {
+                          if (value != arguments['name']) {
+                            nameChanged = true;
+                          } else {
+                            nameChanged = false;
+                          }
+                        }),
                         controller: nameController,
                         decoration: const InputDecoration(
                           labelStyle: TextStyle(
@@ -107,6 +125,8 @@ class _TaskFormState extends State<TaskForm> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter a task';
+                          } else if (taskAlreadyExist()) {
+                            return 'Task already exist';
                           } else {
                             return null;
                           }
