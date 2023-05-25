@@ -48,6 +48,14 @@ class _HomeState extends State<Home> {
     return count;
   }
 
+  void clearCurrentUserTask() {
+    for (var i = 0; i < taskData.length; i++) {
+      if (taskData[i]['userKey'] == userKey) {
+        tasks.delete(taskData[i]['key']);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     arguments = ModalRoute.of(context)!.settings.arguments;
@@ -258,6 +266,30 @@ class _HomeState extends State<Home> {
                         },
                         child: const Icon(
                           Icons.logout,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Container(
+                      margin: const EdgeInsets.only(
+                        bottom: 15,
+                      ),
+                      child: FloatingActionButton(
+                        heroTag: 'delete_all',
+                        backgroundColor: Colors.red,
+                        onPressed: () {
+                          if (countCurrentUserTask() > 0) {
+                            clearCurrentUserTask();
+                            getData();
+                          }
+                        },
+                        child: const Icon(
+                          Icons.clear_all_sharp,
                           color: Colors.white,
                         ),
                       ),
