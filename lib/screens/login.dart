@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../components/app_bar.dart';
+import '../components/notif.dart';
 import '../components/style.dart';
 import 'package:hive/hive.dart';
 
@@ -221,7 +222,10 @@ class _LoginState extends State<Login> {
                                 if (loginFormKey.currentState!.validate()) {
                                   if (login()) {
                                     clearForm();
-                                  } else {}
+                                  } else {
+                                    Notif.showMessage('Wrong login credentials',
+                                        Colors.red, context);
+                                  }
                                 } else {
                                   setState(() {
                                     validateMode = AutovalidateMode.always;
