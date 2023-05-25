@@ -142,7 +142,16 @@ class _TaskFormState extends State<TaskForm> {
                             lastDate: DateTime.now().add(
                               const Duration(days: 10000),
                             ),
-
+                            builder: (context, child) => Theme(
+                                data: ThemeData().copyWith(
+                                    colorScheme: const ColorScheme.dark(
+                                      primary: Colors.white,
+                                      onPrimary: Style.violet,
+                                      surface: Style.violet,
+                                      onSurface: Colors.white,
+                                    ),
+                                    dialogBackgroundColor: Style.violet),
+                                child: child!),
                           );
                           if (pickedDate != null) {
                             setState(
