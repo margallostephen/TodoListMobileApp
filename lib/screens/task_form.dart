@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../components/app_bar.dart';
+import '../components/notif.dart';
 import '../components/style.dart';
 
 class TaskForm extends StatefulWidget {
@@ -227,10 +228,17 @@ class _TaskFormState extends State<TaskForm> {
                                   String message;
                                   if (arguments['operation'] == "Add Task") {
                                     addTask();
+                                    message = 'New task added';
                                   } else {
                                     editTask();
+                                    message =
+                                        'Task ${arguments['name']} updated';
                                   }
-
+                                  Notif.showMessage(
+                                    message,
+                                    Colors.green[600],
+                                    context,
+                                  );
                                   Navigator.pop(context);
                                 }
                               },
