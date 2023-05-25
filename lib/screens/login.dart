@@ -56,6 +56,15 @@ class _LoginState extends State<Login> {
     return false;
   }
 
+  void clearForm() {
+    setState(() {
+      loginFormKey.currentState!.reset();
+      emailController.clear();
+      passwordController.clear();
+      validateMode = AutovalidateMode.disabled;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     IconData visibilityIcon =
@@ -211,6 +220,7 @@ class _LoginState extends State<Login> {
                               onPressed: () {
                                 if (loginFormKey.currentState!.validate()) {
                                   if (login()) {
+                                    clearForm();
                                   } else {}
                                 } else {
                                   setState(() {
