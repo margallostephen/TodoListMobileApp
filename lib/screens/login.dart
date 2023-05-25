@@ -68,8 +68,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    IconData visibilityIcon =
-        passVisibility ? Icons.visibility_off : Icons.visibility;
+    IconData visibilityIcon = passVisibility ? Icons.visibility_off : Icons.visibility;
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 54, 23, 94),
@@ -218,10 +217,18 @@ class _LoginState extends State<Login> {
                             width: double.infinity,
                             height: 50,
                             child: ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 if (loginFormKey.currentState!.validate()) {
                                   if (login()) {
                                     clearForm();
+                                    Navigator.pushNamed(
+                                      context,
+                                      '/home',
+                                      arguments: {
+                                        'name': name,
+                                        'userKey': userKey,
+                                      },
+                                    );
                                   } else {
                                     Notif.showMessage('Wrong login credentials',
                                         Colors.red, context);
@@ -263,7 +270,12 @@ class _LoginState extends State<Login> {
                                 ),
                               ),
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  clearForm();
+                                  await Navigator.pushNamed(
+                                      context, '/register');
+                                  getData();
+                                },
                                 child: const Text(
                                   'Register',
                                   style: TextStyle(
