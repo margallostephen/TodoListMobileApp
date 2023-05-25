@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../components/app_bar.dart';
 import 'package:hive/hive.dart';
+import '../components/style.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -116,7 +117,128 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       )
-                    :
+                    : ListView.builder(
+                        itemCount: taskData.length,
+                        itemBuilder: (context, index) {
+                          final task = taskData[index];
+                          if (task['userKey'] == userKey) {
+                            return Dismissible(
+                              direction: DismissDirection.startToEnd,
+                              key: Key(task['key'].toString()),
+                              onDismissed: (_) {
+                                // TODO: Delete Task
+                              },
+                              background: Container(
+                                margin: const EdgeInsets.fromLTRB(
+                                  5,
+                                  5,
+                                  5,
+                                  10,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Colors.red,
+                                ),
+                                alignment: Alignment.centerLeft,
+                                child: const Padding(
+                                  padding: EdgeInsets.only(left: 20),
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              child: Card(
+                                margin: const EdgeInsets.fromLTRB(
+                                  5,
+                                  5,
+                                  5,
+                                  10,
+                                ),
+                                elevation: 10,
+                                shadowColor: Colors.black,
+                                child: ListTile(
+                                  leading: Container(
+                                    width: 70,
+                                    height: 100,
+                                    decoration: const BoxDecoration(
+                                      color: Style.violet,
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(5),
+                                      ),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          task['date'].substring(0, 2),
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          task['date']
+                                              .replaceAll('-', ' ')
+                                              .substring(
+                                                3,
+                                                task['date'].toString().length,
+                                              ),
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  title: Padding(
+                                    padding: const EdgeInsets.only(
+                                      top: 10,
+                                      bottom: 5,
+                                    ),
+                                    child: Text(
+                                      task['name'],
+                                      style: const TextStyle(
+                                        color: Style.violet,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  subtitle: Padding(
+                                    padding: const EdgeInsets.only(
+                                      bottom: 10,
+                                    ),
+                                    child: Text(
+                                      task['description'],
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                  trailing: GestureDetector(
+                                    onTap: () {
+                                      // TODO: Edit Task
+                                    },
+                                    child: const Icon(
+                                      Icons.edit,
+                                      color: Style.violet,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                          return const SizedBox.shrink();
+                        },
+                      ),
               ),
             ),
           ],
