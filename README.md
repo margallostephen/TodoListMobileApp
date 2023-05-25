@@ -31,3 +31,20 @@ Stephen Margallo
 	•	Add no task label
 
 
+Cedrix Monreal
+
+	Finalize task form
+	Add form auto validate
+	Add notification message
+	Add create and edit task function
+	Add value retention for input fields
+	Update date picker style
+	Add date picker function
+	Add form validation
+	Add form buttons
+	Add input fields
+	Add app bar
+
+
+
+
