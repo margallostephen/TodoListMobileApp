@@ -95,6 +95,30 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                margin: const EdgeInsets.only(top: 10, bottom: 15),
+                padding: const EdgeInsets.all(10),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+                ),
+                child: countCurrentUserTask() == 0
+                    ? const Center(
+                        child: Text(
+                          'No Task Added Yet',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      )
+                    :
+              ),
+            ),
           ],
         ),
       ),
