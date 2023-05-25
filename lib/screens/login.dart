@@ -18,6 +18,7 @@ class _LoginState extends State<Login> {
   final loginFormKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool passVisibility = true, showPassButton = false;
 
   @override
   void initState() {
@@ -56,6 +57,9 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    IconData visibilityIcon =
+        passVisibility ? Icons.visibility_off : Icons.visibility;
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 54, 23, 94),
       body: SingleChildScrollView(
@@ -144,28 +148,56 @@ class _LoginState extends State<Login> {
                           const SizedBox(
                             height: 20,
                           ),
-                          TextFormField(
-                            controller: passwordController,
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              labelStyle: const TextStyle(
-                                color: Style.violet,
+                          FocusScope(
+                            child: Focus(
+                              onFocusChange: (hasFocus) {
+                                setState(() {
+                                  showPassButton = hasFocus;
+                                  passVisibility = true;
+                                });
+                              },
+                              child: TextFormField(
+                                controller: passwordController,
+                                obscureText: passVisibility,
+                                decoration: InputDecoration(
+                                  labelStyle: const TextStyle(
+                                    color: Style.violet,
+                                  ),
+                                  labelText: 'Password',
+                                  prefixIcon: const Icon(Icons.lock),
+                                  prefixIconColor: Style.violet,
+                                  border: Style.normal,
+                                  enabledBorder: Style.normal,
+                                  focusedBorder: Style.focused,
+                                  focusedErrorBorder: Style.errorFocused,
+                                  suffixIcon: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        passVisibility = !passVisibility;
+                                      });
+                                    },
+                                    child: Visibility(
+                                      visible: showPassButton,
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 10),
+                                        child: Icon(
+                                          visibilityIcon,
+                                          color: Style.violet,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your password';
+                                  } else {
+                                    return null;
+                                  }
+                                },
                               ),
-                              labelText: 'Password',
-                              prefixIcon: const Icon(Icons.lock),
-                              prefixIconColor: Style.violet,
-                              border: Style.normal,
-                              enabledBorder: Style.normal,
-                              focusedBorder: Style.focused,
-                              focusedErrorBorder: Style.errorFocused,
                             ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter your password';
-                              } else {
-                                return null;
-                              }
-                            },
                           ),
                           const SizedBox(
                             height: 40,
@@ -177,10 +209,7 @@ class _LoginState extends State<Login> {
                               onPressed: () {
                                 if (loginFormKey.currentState!.validate()) {
                                   if (login()) {
-
-                                  } else {
-                                    
-                                  }
+                                  } else {}
                                 }
                               },
                               style: ElevatedButton.styleFrom(
