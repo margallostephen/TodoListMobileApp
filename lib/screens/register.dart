@@ -144,7 +144,7 @@ class _RegisterState extends State<Register> {
                               labelStyle: TextStyle(
                                 color: Style.violet,
                               ),
-                              labelText: 'Name',
+                              labelText: 'Please Enter Your Name',
                               prefixIcon: Icon(Icons.person),
                               prefixIconColor: Style.violet,
                               border: Style.normal,
