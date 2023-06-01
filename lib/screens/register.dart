@@ -175,7 +175,7 @@ class _RegisterState extends State<Register> {
                               labelStyle: TextStyle(
                                 color: Style.violet,
                               ),
-                              labelText: 'Email',
+                              labelText: 'Enter Your Email',
                               prefixIcon: Icon(Icons.email),
                               prefixIconColor: Style.violet,
                               border: Style.normal,
