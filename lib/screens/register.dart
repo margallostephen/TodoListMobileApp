@@ -244,7 +244,7 @@ class _RegisterState extends State<Register> {
                                   labelStyle: const TextStyle(
                                     color: Style.violet,
                                   ),
-                                  labelText: 'Password',
+                                  labelText: 'Enter your password',
                                   prefixIcon: const Icon(Icons.lock),
                                   prefixIconColor: Style.violet,
                                   border: Style.normal,
