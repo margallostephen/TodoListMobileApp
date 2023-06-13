@@ -1,10 +1,8 @@
-# README #
-
-### What is this repository for? ###
+# TodoList #
 
 This is a simple to-do list app built using flutter framework
 
-### How do I get set up? ###
+### How do I run this project? ###
 
 1. Clone the repository
 2. Run flutter pub get in the terminal to resolve dependencies issue
